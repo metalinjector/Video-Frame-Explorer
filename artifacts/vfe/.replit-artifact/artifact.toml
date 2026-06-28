@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Video Frame Explorer"
+version = "1.0.0"
+id = "artifacts/vfe"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23390
+
+[services.development]
+run = "pnpm --filter @workspace/vfe run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/vfe", "run", "build" ]
+publicDir = "artifacts/vfe/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23390"
+BASE_PATH = "/"
